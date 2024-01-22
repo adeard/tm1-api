@@ -1,0 +1,58 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "TM1 API SERVICE",
+        "title": "API SWAGGER FOR TM1 API SERVICE",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "ICT INDOAGRI",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "host": "202.158.14.235:4222",
+    "paths": {
+        "/api/v1/send": {
+            "post": {
+                "description": "Send Tm1 Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TM1"
+                ],
+                "summary": "Send Tm1 Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "elapsed_time": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

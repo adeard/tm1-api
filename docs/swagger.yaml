@@ -1,0 +1,39 @@
+definitions:
+  domain.Response:
+    properties:
+      data: {}
+      elapsed_time:
+        type: string
+      message:
+        type: string
+    type: object
+host: 202.158.14.235:4222
+info:
+  contact:
+    email: support@swagger.io
+    name: ICT INDOAGRI
+    url: http://www.swagger.io/support
+  description: TM1 API SERVICE
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API SWAGGER FOR TM1 API SERVICE
+  version: 1.0.0
+paths:
+  /api/v1/send:
+    post:
+      consumes:
+      - application/json
+      description: Send Tm1 Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Send Tm1 Data
+      tags:
+      - TM1
+swagger: "2.0"
