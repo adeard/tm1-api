@@ -32,20 +32,20 @@ import (
 func main() {
 	// db := config.Connect()
 
-	docs.SwaggerInfo.BasePath = "/tm1"
+	docs.SwaggerInfo.BasePath = "/Tm1Api"
 
 	router := gin.Default()
 	router.Use(cors.AllowAll())
-	router.GET("tm1/", func(ctx *gin.Context) {
+	router.GET("Tm1Api/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"title":         "TM1 API Service",
 			"documentation": "/swagger/index.html",
 		})
 	})
 
-	router.GET("tm1/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	router.GET("Tm1Api/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	v1 := router.Group("tm1/api/v1")
+	v1 := router.Group("Tm1Api/api/v1")
 
 	tm1.NewTm1Handler(v1, tm1.Tm1Registry())
 
