@@ -17,7 +17,7 @@ func NewTm1Handler(v1 *gin.RouterGroup, tm1Service Service) {
 
 	handler := &tm1Handler{tm1Service}
 
-	v1.POST("send", handler.SendTm)
+	v1.POST("post", handler.SendTm)
 }
 
 // @Summary Send Tm1 Data
