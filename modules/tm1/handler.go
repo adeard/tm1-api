@@ -60,7 +60,7 @@ func (h *tm1Handler) SendTm(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} domain.Response{}
-// @Router /api/v1/map [post]
+// @Router /api/v1/map [get]
 // @Tags TM1
 func (h *tm1Handler) GetMap(c *gin.Context) {
 	input := domain.MapRequestData{}

@@ -21,6 +21,21 @@ info:
   title: API SWAGGER FOR TM1 API SERVICE
   version: 1.0.0
 paths:
+  /api/v1/map:
+    get:
+      consumes:
+      - application/json
+      description: Get Map Html
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Get Map Html
+      tags:
+      - TM1
   /api/v1/send:
     post:
       consumes:
