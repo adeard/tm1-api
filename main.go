@@ -35,6 +35,7 @@ func main() {
 	docs.SwaggerInfo.BasePath = "/Tm1Api"
 
 	router := gin.Default()
+	router.LoadHTMLGlob("html/*")
 	router.Use(cors.AllowAll())
 	router.GET("Tm1Api/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{

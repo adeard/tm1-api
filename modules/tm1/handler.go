@@ -17,6 +17,7 @@ func NewTm1Handler(v1 *gin.RouterGroup, tm1Service Service) {
 
 	handler := &tm1Handler{tm1Service}
 
+	v1.GET("map", handler.GetMap)
 	v1.POST("post", handler.SendTm)
 }
 
@@ -52,4 +53,22 @@ func (h *tm1Handler) SendTm(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, result)
+}
+
+// @Summary Get Map Html
+// @Description Get Map Html
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} domain.Response{}
+// @Router /api/v1/map [post]
+// @Tags TM1
+func (h *tm1Handler) GetMap(c *gin.Context) {
+	input := domain.MapRequestData{}
+
+	c.ShouldBind(&input)
+	c.HTML(http.StatusOK, "map.tmpl", gin.H{
+		"title": input.Title,
+		"lat":   input.Lat,
+		"lng":   input.Lng,
+	})
 }
