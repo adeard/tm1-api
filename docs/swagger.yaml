@@ -36,6 +36,36 @@ paths:
       summary: Get Map Html
       tags:
       - TM1
+  /api/v1/post/:uri1/:uri2:
+    post:
+      consumes:
+      - application/json
+      description: Send Tm1 Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Send Tm1 Data
+      tags:
+      - TM1
+  /api/v1/post/ratest:
+    post:
+      consumes:
+      - application/json
+      description: Send Tm1 Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Send Tm1 Data
+      tags:
+      - TM1
   /api/v1/send:
     post:
       consumes:

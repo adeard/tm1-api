@@ -3,9 +3,9 @@ package tm1
 import "tm1-api/domain"
 
 type Service interface {
-	Send(uri1 string, uri2 string, input domain.Tm1RequestDynamicData) (any, error)
 	GetTm(uri1 string, uri2 string, queryString string) (any, error)
 	SendTm(input domain.Tm1RequestData) (any, error)
+	SendRaTest(input domain.Tm1RequestDynamicData) (any, error)
 }
 
 type service struct {
@@ -22,8 +22,8 @@ func (s *service) SendTm(input domain.Tm1RequestData) (any, error) {
 	return res, err
 }
 
-func (s *service) Send(uri1 string, uri2 string, input domain.Tm1RequestDynamicData) (any, error) {
-	res, err := s.repository.Send(uri1, uri2, input)
+func (s *service) SendRaTest(input domain.Tm1RequestDynamicData) (any, error) {
+	res, err := s.repository.SendRaTest(input)
 
 	return res, err
 }

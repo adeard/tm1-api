@@ -40,6 +40,52 @@
                 }
             }
         },
+        "/api/v1/post/:uri1/:uri2": {
+            "post": {
+                "description": "Send Tm1 Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TM1"
+                ],
+                "summary": "Send Tm1 Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post/ratest": {
+            "post": {
+                "description": "Send Tm1 Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TM1"
+                ],
+                "summary": "Send Tm1 Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/send": {
             "post": {
                 "description": "Send Tm1 Data",

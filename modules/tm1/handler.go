@@ -20,7 +20,7 @@ func NewTm1Handler(v1 *gin.RouterGroup, tm1Service Service) {
 	v1.GET("map", handler.GetMap)
 	v1.GET(":uri1/:uri2", handler.GetTm)
 	v1.POST("post", handler.SendTm)
-	v1.POST("post/:uri1/:uri2", handler.PostTm)
+	v1.POST("post/ratest", handler.PostRaTest)
 }
 
 // @Summary Send Tm1 Data
@@ -80,12 +80,10 @@ func (h *tm1Handler) GetMap(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} domain.Response{}
-// @Router /api/v1/post/:uri1/:uri2 [post]
+// @Router /api/v1/post/ratest [post]
 // @Tags TM1
-func (h *tm1Handler) PostTm(c *gin.Context) {
+func (h *tm1Handler) PostRaTest(c *gin.Context) {
 	start := time.Now()
-	uri1 := c.Param("uri1")
-	uri2 := c.Param("uri2")
 	input := domain.Tm1RequestDynamicData{}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -93,7 +91,7 @@ func (h *tm1Handler) PostTm(c *gin.Context) {
 		return
 	}
 
-	res, err := h.tm1Service.Send(uri1, uri2, input)
+	res, err := h.tm1Service.SendRaTest(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.Response{
 			Message:     err.Error(),

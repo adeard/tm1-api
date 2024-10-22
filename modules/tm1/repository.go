@@ -7,12 +7,13 @@ import (
 	"io/ioutil"
 	"net/http"
 	"tm1-api/domain"
+	"tm1-api/helpers"
 )
 
 type Repository interface {
-	Send(uri1 string, uri2 string, input domain.Tm1RequestDynamicData) (any, error)
 	GetTm(uri1 string, uri2 string, queryString string) (any, error)
 	SendTm(input domain.Tm1RequestData) (any, error)
+	SendRaTest(input domain.Tm1RequestDynamicData) (any, error)
 }
 
 type repository struct{}
@@ -53,36 +54,10 @@ func (r *repository) SendTm(input domain.Tm1RequestData) (any, error) {
 	return result, err
 }
 
-func (r *repository) Send(uri1 string, uri2 string, input domain.Tm1RequestDynamicData) (any, error) {
-	var result any
+func (r *repository) SendRaTest(input domain.Tm1RequestDynamicData) (any, error) {
+	tmUrl := "http://10.120.20.174:25772/api/v1/Cubes('RA Test')/tm1.UpdateCells"
 
-	tmUrl := "http://10.120.20.174:25772/api/v1/" + uri1 + "/" + uri2
-
-	inputString, err := json.Marshal(input)
-	if err != nil {
-		panic(err)
-	}
-
-	var jsonStr = []byte(inputString)
-
-	req, _ := http.NewRequest("POST", tmUrl, bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-	req.SetBasicAuth("admin", "")
-
-	// proxyUrl, _ := url.Parse("http://10.126.111.123:4480")
-	// client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	response, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(response))
-
-	return result, err
+	return helpers.PostTm(tmUrl, input)
 }
 
 func (r *repository) GetTm(uri1 string, uri2 string, queryString string) (any, error) {
