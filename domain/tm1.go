@@ -8,3 +8,15 @@ type Tm1RequestData struct {
 type Tm1RequestDynamicData struct {
 	Updates any
 }
+
+type Tm1DynamicRequestData struct {
+	Tm1DynamicInputData
+	Cubes string `json:"Cubes"`
+	Port  string `json:"Port"`
+	Url   string `json:"Url"`
+}
+
+type Tm1DynamicInputData struct {
+	Cells any `json:"Cells"`
+	Value any `json:"Value"`
+}

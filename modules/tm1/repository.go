@@ -13,6 +13,7 @@ import (
 type Repository interface {
 	GetTm(uri1 string, uri2 string, queryString string) (any, error)
 	SendTm(input domain.Tm1RequestData) (any, error)
+	SendDynamicTm(input domain.Tm1DynamicRequestData) (any, error)
 	SendRaTest(input domain.Tm1RequestDynamicData) (any, error)
 }
 
@@ -52,6 +53,12 @@ func (r *repository) SendTm(input domain.Tm1RequestData) (any, error) {
 	fmt.Println(string(response))
 
 	return result, err
+}
+
+func (r *repository) SendDynamicTm(input domain.Tm1DynamicRequestData) (any, error) {
+	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Cubes('" + input.Cubes + "')/tm1.Update"
+
+	return helpers.PostTm(tmUrl, input.Tm1DynamicInputData)
 }
 
 func (r *repository) SendRaTest(input domain.Tm1RequestDynamicData) (any, error) {
