@@ -56,9 +56,9 @@ func (r *repository) SendTm(input domain.Tm1RequestData) (any, error) {
 }
 
 func (r *repository) SendDynamicTm(input domain.Tm1DynamicRequestData) (any, error) {
-	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Cubes('" + input.Cubes + "')/tm1.Update"
+	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Cubes('" + input.Cubes + "')/tm1.UpdateCells"
 
-	return helpers.PostTm(tmUrl, input.Tm1DynamicInputData)
+	return helpers.PostTm(tmUrl, input.Tm1RequestDynamicData)
 }
 
 func (r *repository) SendRaTest(input domain.Tm1RequestDynamicData) (any, error) {

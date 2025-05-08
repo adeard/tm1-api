@@ -10,7 +10,7 @@ type Tm1RequestDynamicData struct {
 }
 
 type Tm1DynamicRequestData struct {
-	Tm1DynamicInputData
+	Tm1RequestDynamicData
 	Cubes string `json:"Cubes"`
 	Port  string `json:"Port"`
 	Url   string `json:"Url"`

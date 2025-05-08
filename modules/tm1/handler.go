@@ -161,6 +161,7 @@ func (h *tm1Handler) PostTm(c *gin.Context) {
 	res, err := h.tm1Service.SendDynamicTm(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.Response{
+			Data:        res,
 			Message:     err.Error(),
 			ElapsedTime: fmt.Sprint(time.Since(start)),
 		})

@@ -32,5 +32,17 @@ func PostTm(tmUrl string, input any) (any, error) {
 
 	response, _ := ioutil.ReadAll(resp.Body)
 
-	return string(response), err
+	result := ""
+
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusAccepted && resp.StatusCode != http.StatusCreated && resp.StatusCode != http.StatusNoContent {
+		result = "ERROR"
+		err = fmt.Errorf("%v", string(response))
+	} else {
+		result = string(response)
+		if result == "" {
+			result = "SUCCESS"
+		}
+	}
+
+	return result, err
 }
