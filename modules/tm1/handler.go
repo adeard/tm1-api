@@ -20,7 +20,9 @@ func NewTm1Handler(v1 *gin.RouterGroup, tm1Service Service) {
 	v1.GET("map", handler.GetMap)
 	v1.GET(":uri1/:uri2", handler.GetTm)
 	v1.POST("post", handler.SendTm)
+	v1.POST("add/tm", handler.AddTm)
 	v1.POST("post/tm", handler.PostTm)
+	v1.POST("check/tm", handler.CheckTm)
 	v1.POST("post/ratest", handler.PostRaTest)
 }
 
@@ -159,6 +161,76 @@ func (h *tm1Handler) PostTm(c *gin.Context) {
 	}
 
 	res, err := h.tm1Service.SendDynamicTm(input)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.Response{
+			Data:        res,
+			Message:     err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	result := domain.Response{
+		Data:        res,
+		ElapsedTime: fmt.Sprint(time.Since(start)),
+	}
+
+	c.JSON(http.StatusOK, result)
+}
+
+// @Summary Check Component Tm1 Data
+// @Description Check Component Tm1 Data
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} domain.Response{}
+// @Router /api/v1/check/tm [post]
+// @Tags TM1
+func (h *tm1Handler) CheckTm(c *gin.Context) {
+	start := time.Now()
+	input := domain.Tm1GetElementRequestData{}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	res, err := h.tm1Service.SendGetDynamicTm(input)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.Response{
+			Data:        res,
+			Message:     err.Error(),
+			ElapsedTime: fmt.Sprint(time.Since(start)),
+		})
+
+		return
+	}
+
+	result := domain.Response{
+		Data:        res,
+		ElapsedTime: fmt.Sprint(time.Since(start)),
+	}
+
+	c.JSON(http.StatusOK, result)
+}
+
+// @Summary Check Component Tm1 Data
+// @Description Check Component Tm1 Data
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} domain.Response{}
+// @Router /api/v1/add/tm [post]
+// @Tags TM1
+func (h *tm1Handler) AddTm(c *gin.Context) {
+	start := time.Now()
+	input := domain.Tm1AddElementRequestData{}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	res, err := h.tm1Service.AddElementTm(input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.Response{
 			Data:        res,

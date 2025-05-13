@@ -24,6 +24,52 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/add/tm": {
+            "post": {
+                "description": "Check Component Tm1 Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TM1"
+                ],
+                "summary": "Check Component Tm1 Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/check/tm": {
+            "post": {
+                "description": "Check Component Tm1 Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TM1"
+                ],
+                "summary": "Check Component Tm1 Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/map": {
             "get": {
                 "description": "Get Map Html",
@@ -71,6 +117,29 @@ const docTemplate = `{
             }
         },
         "/api/v1/post/ratest": {
+            "post": {
+                "description": "Send Tm1 Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "TM1"
+                ],
+                "summary": "Send Tm1 Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post/tm": {
             "post": {
                 "description": "Send Tm1 Data",
                 "consumes": [

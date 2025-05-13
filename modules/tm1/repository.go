@@ -15,12 +15,39 @@ type Repository interface {
 	SendTm(input domain.Tm1RequestData) (any, error)
 	SendDynamicTm(input domain.Tm1DynamicRequestData) (any, error)
 	SendRaTest(input domain.Tm1RequestDynamicData) (any, error)
+	AddElementTm(input domain.Tm1AddElementRequestData) (any, error)
+	SendGetDynamicTm(input domain.Tm1GetElementRequestData) (any, error)
 }
 
 type repository struct{}
 
 func NewRepository() *repository {
 	return &repository{}
+}
+
+func (r *repository) SendDynamicTm(input domain.Tm1DynamicRequestData) (any, error) {
+	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Cubes('" + input.Cubes + "')/tm1.UpdateCells"
+
+	return helpers.PostTm(tmUrl, input.Tm1RequestDynamicData)
+}
+
+func (r *repository) SendGetDynamicTm(input domain.Tm1GetElementRequestData) (any, error) {
+	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Dimensions('" + input.Dimensions + "')/Hierarchies('" + input.Hierarchies + "')/Elements('" + input.Elements + "')"
+
+	return helpers.GetTm(tmUrl)
+}
+
+func (r *repository) AddElementTm(input domain.Tm1AddElementRequestData) (any, error) {
+	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Dimensions('" + input.Dimensions + "')/Hierarchies('" + input.Hierarchies + "')/Elements('" + input.Parents + "')/tm1.SetComponent"
+
+	message := map[string]interface{}{
+		"Element": map[string]interface{}{
+			"Name":       input.Elements,
+			"UniqueName": input.Elements,
+		},
+	}
+
+	return helpers.PostTm(tmUrl, message)
 }
 
 func (r *repository) SendTm(input domain.Tm1RequestData) (any, error) {
@@ -53,12 +80,6 @@ func (r *repository) SendTm(input domain.Tm1RequestData) (any, error) {
 	fmt.Println(string(response))
 
 	return result, err
-}
-
-func (r *repository) SendDynamicTm(input domain.Tm1DynamicRequestData) (any, error) {
-	tmUrl := "http://" + input.Url + ":" + input.Port + "/api/v1/Cubes('" + input.Cubes + "')/tm1.UpdateCells"
-
-	return helpers.PostTm(tmUrl, input.Tm1RequestDynamicData)
 }
 
 func (r *repository) SendRaTest(input domain.Tm1RequestDynamicData) (any, error) {

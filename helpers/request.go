@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -41,6 +42,37 @@ func PostTm(tmUrl string, input any) (any, error) {
 		result = string(response)
 		if result == "" {
 			result = "SUCCESS"
+		}
+	}
+
+	return result, err
+}
+
+func GetTm(tmUrl string) (any, error) {
+	var result any
+
+	req, _ := http.NewRequest("GET", tmUrl, nil)
+	req.SetBasicAuth("admin", "")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	response, _ := io.ReadAll(resp.Body)
+	fmt.Println(string(response))
+
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusAccepted && resp.StatusCode != http.StatusCreated && resp.StatusCode != http.StatusNoContent {
+		result = "ERROR"
+		err = fmt.Errorf("%v", string(response))
+	} else {
+		err = json.Unmarshal(response, &result)
+		if err != nil {
+			fmt.Println("Error unmarshalling JSON:", err)
+			return nil, err
 		}
 	}
 

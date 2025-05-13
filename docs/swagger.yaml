@@ -21,6 +21,36 @@ info:
   title: API SWAGGER FOR TM1 API SERVICE
   version: 1.0.0
 paths:
+  /api/v1/add/tm:
+    post:
+      consumes:
+      - application/json
+      description: Check Component Tm1 Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Check Component Tm1 Data
+      tags:
+      - TM1
+  /api/v1/check/tm:
+    post:
+      consumes:
+      - application/json
+      description: Check Component Tm1 Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Check Component Tm1 Data
+      tags:
+      - TM1
   /api/v1/map:
     get:
       consumes:
@@ -52,6 +82,21 @@ paths:
       tags:
       - TM1
   /api/v1/post/ratest:
+    post:
+      consumes:
+      - application/json
+      description: Send Tm1 Data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Response'
+      summary: Send Tm1 Data
+      tags:
+      - TM1
+  /api/v1/post/tm:
     post:
       consumes:
       - application/json
